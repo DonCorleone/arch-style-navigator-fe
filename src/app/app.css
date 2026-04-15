@@ -1,0 +1,113 @@
+:host {
+  display: block;
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: system-ui, sans-serif;
+  color: #1f2937;
+}
+
+h1 {
+  font-size: 1.75rem;
+  margin: 0 0 0.25rem;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin: 0 0 1.5rem;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: vertical;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+button {
+  align-self: flex-start;
+  padding: 0.6rem 1.5rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #dc2626;
+  padding: 0.75rem;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  background: #fef2f2;
+}
+
+.result-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.result-card h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+  color: #111827;
+}
+
+.epoche {
+  color: #6b7280;
+  margin: 0 0 1rem;
+}
+
+section {
+  margin-top: 1.25rem;
+}
+
+section h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin: 0 0 0.5rem;
+}
+
+ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+li {
+  margin-bottom: 0.25rem;
+  line-height: 1.5;
+}
