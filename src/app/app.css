@@ -1,10 +1,47 @@
+/* CSS Custom Properties: Light Mode Defaults */
 :host {
+  --bg: #ffffff;
+  --text: #1f2937;
+  --text-muted: #6b7280;
+  --border: #d1d5db;
+  --border-result: #e5e7eb;
+  --input-bg: #ffffff;
+  --card-bg: #ffffff;
+  --error-text: #dc2626;
+  --error-border: #fca5a5;
+  --error-bg: #fef2f2;
+  --btn-bg: #2563eb;
+  --btn-hover: #1d4ed8;
+
   display: block;
-  max-width: 720px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  min-height: 100vh;
   font-family: system-ui, sans-serif;
-  color: #1f2937;
+  color: var(--text);
+  background: var(--bg);
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Dark Mode: greift wenn das OS auf Dark gestellt ist */
+@media (prefers-color-scheme: dark) {
+  :host {
+    --bg: #111827;
+    --text: #f9fafb;
+    --text-muted: #9ca3af;
+    --border: #374151;
+    --border-result: #374151;
+    --input-bg: #1f2937;
+    --card-bg: #1f2937;
+    --error-text: #f87171;
+    --error-border: #7f1d1d;
+    --error-bg: #1f0a0a;
+    --btn-bg: #3b82f6;
+    --btn-hover: #2563eb;
+  }
 }
 
 h1 {
@@ -13,7 +50,7 @@ h1 {
 }
 
 .subtitle {
-  color: #6b7280;
+  color: var(--text-muted);
   margin: 0 0 1.5rem;
 }
 
@@ -26,24 +63,26 @@ h1 {
 textarea {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 1rem;
   resize: vertical;
   box-sizing: border-box;
   font-family: inherit;
+  background: var(--input-bg);
+  color: var(--text);
 }
 
 textarea:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  border-color: var(--btn-bg);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
 }
 
 button {
   align-self: flex-start;
   padding: 0.6rem 1.5rem;
-  background: #2563eb;
+  background: var(--btn-bg);
   color: white;
   border: none;
   border-radius: 6px;
@@ -53,7 +92,7 @@ button {
 }
 
 button:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: var(--btn-hover);
 }
 
 button:disabled {
@@ -63,28 +102,118 @@ button:disabled {
 
 .error {
   margin-top: 1rem;
-  color: #dc2626;
+  color: var(--error-text);
   padding: 0.75rem;
-  border: 1px solid #fca5a5;
+  border: 1px solid var(--error-border);
   border-radius: 6px;
-  background: #fef2f2;
+  background: var(--error-bg);
 }
 
 .result-card {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-result);
   border-radius: 8px;
   padding: 1.5rem;
   margin-top: 1.5rem;
+  background: var(--card-bg);
+}
+
+/* Mode-Toggle */
+.mode-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.toggle-btn {
+  align-self: auto;
+  padding: 0.4rem 1.25rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.toggle-btn:hover:not(:disabled) {
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+.toggle-btn.active {
+  background: var(--btn-bg);
+  color: white;
+  border-color: var(--btn-bg);
+}
+
+/* File Input */
+.file-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: var(--input-bg);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  transition: border-color 0.2s;
+}
+
+.file-label:hover {
+  border-color: var(--btn-bg);
+  color: var(--text);
+}
+
+.file-label input[type="file"] {
+  display: none;
+}
+
+/* Bild-Vorschau */
+.image-preview {
+  max-width: 100%;
+  max-height: 320px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  object-fit: contain;
+}
+
+/* Kommentar-Feld */
+.comment-input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+.comment-input:focus {
+  outline: none;
+  border-color: var(--btn-bg);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+/* Result Header mit Konfidenz-Badge */
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
 }
 
 .result-card h2 {
-  margin: 0 0 0.25rem;
+  margin: 0;
   font-size: 1.5rem;
-  color: #111827;
 }
 
 .epoche {
-  color: #6b7280;
+  color: var(--text-muted);
   margin: 0 0 1rem;
 }
 
@@ -97,7 +226,7 @@ section h3 {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #6b7280;
+  color: var(--text-muted);
   margin: 0 0 0.5rem;
 }
 
@@ -110,4 +239,36 @@ ul {
 li {
   margin-bottom: 0.25rem;
   line-height: 1.5;
+}
+
+/* Konfidenz-Badge */
+.konfidenz-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.konfidenz-hoch {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.konfidenz-mittel {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.konfidenz-niedrig {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+@media (prefers-color-scheme: dark) {
+  .konfidenz-hoch { background: #14532d; color: #86efac; }
+  .konfidenz-mittel { background: #422006; color: #fde047; }
+  .konfidenz-niedrig { background: #450a0a; color: #fca5a5; }
 }

@@ -1,24 +1,71 @@
 <main>
   <h1>Arch Style Navigator</h1>
-  <p class="subtitle">Beschreibe einen Architekturstil – Claude analysiert ihn für dich.</p>
 
-  <div class="input-section">
-    <textarea
-      [formControl]="descriptionControl"
-      rows="4"
-      placeholder="z.B. 'Viel rohes Beton, monumentale Formen, funktionalistisch, 1960er Jahre'"
-    ></textarea>
+  <div class="mode-toggle">
     <button
-      (click)="analyze()"
-      [disabled]="loading() || descriptionControl.invalid"
-    >
-      @if (loading()) {
-        Analysiere...
-      } @else {
-        Analysieren
-      }
-    </button>
+      type="button"
+      class="toggle-btn"
+      [class.active]="mode() === 'text'"
+      (click)="setMode('text')"
+    >Text</button>
+    <button
+      type="button"
+      class="toggle-btn"
+      [class.active]="mode() === 'foto'"
+      (click)="setMode('foto')"
+    >Foto</button>
   </div>
+
+  @if (mode() === 'text') {
+    <p class="subtitle">Beschreibe einen Architekturstil – Claude analysiert ihn für dich.</p>
+    <div class="input-section">
+      <textarea
+        [formControl]="descriptionControl"
+        rows="4"
+        placeholder="z.B. 'Viel rohes Beton, monumentale Formen, funktionalistisch, 1960er Jahre'"
+      ></textarea>
+      <button
+        type="button"
+        (click)="analyze()"
+        [disabled]="loading() || descriptionControl.invalid"
+      >
+        @if (loading()) { Analysiere... } @else { Analysieren }
+      </button>
+    </div>
+  }
+
+  @if (mode() === 'foto') {
+    <p class="subtitle">Lade ein Gebäude-Foto hoch – Claude analysiert den Architekturstil.</p>
+    <div class="input-section">
+      <label class="file-label">
+        <input
+          type="file"
+          accept="image/jpeg,image/png"
+          (change)="onFileSelected($event)"
+        />
+        Bild auswählen (JPG / PNG)
+      </label>
+
+      @if (imagePreview()) {
+        <img class="image-preview" [src]="imagePreview()" alt="Vorschau" />
+      }
+
+      <input
+        class="comment-input"
+        type="text"
+        [formControl]="commentControl"
+        placeholder="Optionaler Kommentar, z.B. 'Fokus auf die Fassade'"
+      />
+
+      <button
+        type="button"
+        (click)="analyzeImage()"
+        [disabled]="loading()"
+      >
+        @if (loading()) { Analysiere... } @else { Analysieren }
+      </button>
+    </div>
+  }
 
   @if (error()) {
     <p class="error">{{ error() }}</p>
@@ -26,7 +73,14 @@
 
   @if (result(); as r) {
     <div class="result-card">
-      <h2>{{ r.stil }}</h2>
+      <div class="result-header">
+        <h2>{{ r.stil }}</h2>
+        @if (r.konfidenz) {
+          <span class="konfidenz-badge" [class]="'konfidenz-' + r.konfidenz">
+            {{ r.konfidenz }}
+          </span>
+        }
+      </div>
       <p class="epoche">Epoche: {{ r.epoche }}</p>
 
       <section>
